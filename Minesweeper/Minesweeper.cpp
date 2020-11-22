@@ -95,10 +95,10 @@ void Minesweeper::InitBoard(bool initBombs, bool clear)
 }
 
 
-void Minesweeper::Discover(const sf::Vector2i& pos)
+bool Minesweeper::Discover(const sf::Vector2i& pos)
 {
 	if (state == State::Win || state == State::Lost)
-		return;
+		return false;
 
 	if (state == State::Start)
 	{
@@ -115,7 +115,7 @@ void Minesweeper::Discover(const sf::Vector2i& pos)
 		if (board[Get(pos)].bomb)
 		{
 			state = State::Lost;
-			return;
+			return true;
 		}
 		else
 		{
@@ -146,13 +146,15 @@ void Minesweeper::Discover(const sf::Vector2i& pos)
 			tracked = newTracked;
 		}
 	}
+
+	return true;
 }
 
 
-void Minesweeper::Mark(const sf::Vector2i& pos)
+bool Minesweeper::Mark(const sf::Vector2i& pos)
 {
 	if (state != State::Playing || state == State::Lost || board[Get(pos)].discovered)
-		return;
+		return false;
 
 	board[Get(pos)].marked = board[Get(pos)].marked == 0 ? 1 : 0;
 
@@ -178,6 +180,8 @@ void Minesweeper::Mark(const sf::Vector2i& pos)
 
 		state = State::Win;
 	}
+
+	return true;
 }
 
 

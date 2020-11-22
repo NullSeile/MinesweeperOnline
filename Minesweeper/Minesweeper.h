@@ -43,9 +43,9 @@ public:
 	Minesweeper(const sf::Vector2i& size, uint bombs);
 	Minesweeper(const sf::Vector2i& size, const std::vector<int>& bombs);
 
-	void Discover(const sf::Vector2i& pos);
+	bool Discover(const sf::Vector2i& pos);
 
-	void Mark(const sf::Vector2i& pos);
+	bool Mark(const sf::Vector2i& pos);
 
 	uint Get(uint x, uint y);
 
